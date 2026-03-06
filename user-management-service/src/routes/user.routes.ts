@@ -14,7 +14,7 @@ router.route('/register').post(registerUserController);
 router.route('/login').post(loginUserController);
 router.route('/users').get(verifytoken, userGetter);
 router.route("/users/:id").patch(verifytoken, updateUserController);
-router.route("/users/:id").delete(verifytoken, deleteUserController)
+router.route("/users/:id").delete(deleteUserController)
 
 
 

@@ -10,7 +10,7 @@ export const registerUserController = async (req: Request, res: Response): Promi
             res.status(400).json({ message: 'Missing required fields' });
             return;
         }
-
+        console.log("body", req.body)
         const tokens = await registerUser({ name, email, age, password, mobile });
 
         res.status(201).json({
@@ -102,7 +102,9 @@ export const deleteUserController = async (
     req: Request<{ id: string }>,
     res: Response
 ): Promise<void> => {
+
     try {
+        console.log("Delete user");
         const userId = req.params.id;
 
         await deleteUserService(userId);
