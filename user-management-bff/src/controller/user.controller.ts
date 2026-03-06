@@ -50,7 +50,10 @@ export const getProfile = async (req: Request, res: Response) => {
 
 export const updateProfile = async (req: Request, res: Response) => {
     try {
-        const userId = req.params.id; // get id from route
+        const userId = req.params.id;
+        const token = req.headers.authorization;
+        console.log(" userId", userId);
+        console.log("token", token);
         if (!userId || Array.isArray(userId)) {
             return res.status(400).json({
                 success: false,
@@ -58,7 +61,8 @@ export const updateProfile = async (req: Request, res: Response) => {
             });
         }
 
-        const updatedUser = await updateUser(userId, req.body);
+
+        const updatedUser = await updateUser(userId, req.body, token);
 
         return res.status(200).json({
             success: true,

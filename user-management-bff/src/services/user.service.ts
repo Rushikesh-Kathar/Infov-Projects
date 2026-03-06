@@ -23,8 +23,13 @@ export const getUser = async (data: any) => {
     return response.data;
 }
 
-export const updateUser = async (id: string, data: any) => {
-    const response = await axios.patch(`${USER_SERVICE_URL}/users/${id}`, data);
+export const updateUser = async (id: string, data: any, token?: string) => {
+    const response = await axios.patch(`${USER_SERVICE_URL}/users/${id}`, data,
+        {
+            headers: {
+                Authorization: token,
+            },
+        });
     return response.data;
 }
 
