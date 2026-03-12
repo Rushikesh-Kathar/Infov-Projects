@@ -5,7 +5,7 @@ import inventoryRouter from "./routes/inventory.routes";
 dotenv.config();
 
 const app: Express = express();
-const port: number = Number(process.env.PORT) || 7000;
+const port: number = Number(process.env.PORT) || 8001;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
