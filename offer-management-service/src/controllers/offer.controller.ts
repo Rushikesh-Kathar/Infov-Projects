@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { createOffer, getallOffers, getOfferById, updateOfferById, deleteOfferById, getOfferBySearch, activateOfferById, deactivateOfferById } from '../services/offer.service'
+import { createOffer, getallOffers, getOfferById, updateOfferById, deleteOfferById, getOfferBySearch, activateOfferById, deactivateOfferById, expiryOfferById } from '../services/offer.service'
 
 export const createOfferController = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -160,6 +160,24 @@ export const deactivateOfferByIdController = async (req: Request, res: Response)
         res.status(200).json({
             message: "Offer deactivated successfully",
             data: deactivateOffer
+        })
+    } catch (error: any) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+export const expiryOfferByIdController = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { id } = req.params;
+        if (!id || Array.isArray(id)) {
+            res.status(400).json({ message: 'Invalid offer ID' });
+            return;
+        }
+        const result = await expiryOfferById(id);
+        res.status(200).json({
+            success: true,
+            message: "Offer status updated if expired",
+            data: result
         })
     } catch (error: any) {
         res.status(500).json({ error: error.message });

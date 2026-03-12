@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createOfferController, getAlloffersController, getOfferByIdController, updateOfferByIdController, deleteOfferByIdController, getOfferBySearchController, activateOfferByIdController, deactivateOfferByIdController } from '../controllers/offer.controller';
+import { createOfferController, getAlloffersController, getOfferByIdController, updateOfferByIdController, deleteOfferByIdController, getOfferBySearchController, activateOfferByIdController, deactivateOfferByIdController, expiryOfferByIdController } from '../controllers/offer.controller';
 
 const router = Router();
 router.route('/offer').post(createOfferController);
@@ -10,6 +10,7 @@ router.route('/offer/:id').patch(updateOfferByIdController);
 router.route('/offer/:id').delete(deleteOfferByIdController);
 router.route('/offers/:id/activate').patch(activateOfferByIdController);
 router.route('/offers/:id/deactivate').patch(deactivateOfferByIdController);
+router.route('/offers/:id/expire').patch(expiryOfferByIdController)
 
 
 

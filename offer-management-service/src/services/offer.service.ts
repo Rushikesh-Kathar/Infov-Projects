@@ -308,3 +308,35 @@ export const deactivateOfferById = async (id: string) => {
         connection.release();
     }
 }
+
+export const expiryOfferById = async (id: string) => {
+    const connection = await conn.getConnection();
+
+    try {
+        const [rows]: any = await connection.query(
+            "SELECT end_date FROM offers WHERE id = ?",
+            [id]
+        );
+        if (rows.length === 0) {
+            throw new Error("Offer not found");
+        }
+
+        const endDate = new Date(rows[0].end_date);
+        const currentDate = new Date();
+        if (currentDate >= endDate) {
+            await connection.query(
+                "UPDATE offers SET status = 'EXPIRED' WHERE id = ?",
+                [id]
+            );
+        }
+
+        return { message: "Offer checked and updated if expired" };
+
+    } catch (err: any) {
+        console.error("DB ERROR:", err);
+        throw err;
+
+    } finally {
+        connection.release();
+    }
+}
